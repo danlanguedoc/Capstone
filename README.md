@@ -1,30 +1,17 @@
----
-output:
-  md_document:
-    variant: markdown_github
----
-
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+Capstone
+========
 
-```{r, echo = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "README-"
-)
-```
-
-# Capstone
-
-The Capstone package provides the user with visualization tools that use `ggplot2` and `leaflet` to analyze NOAA earthquake data (https://www.ngdc.noaa.gov/nndc/struts/form?t=101650&s=1&d=1) 
+The Capstone package provides the user with visualization tools that use `ggplot2` and `leaflet` to analyze NOAA earthquake data (<https://www.ngdc.noaa.gov/nndc/struts/form?t=101650&s=1&d=1>)
 
 The package provides basic data cleaning functionality as well as two types of visualizations, timelines and maps.
 
-## Example
+Example
+-------
 
-This first example will generate a time line of earthquake events with location labels.  The magnitude and number of deaths are represented by the size of the data markers and their color
+This first example will generate a time line of earthquake events with location labels. The magnitude and number of deaths are represented by the size of the data markers and their color
 
-```r
+``` r
 filename <- system.file("extdata/earthquakes.tsv.gz", package = "earthquakeVis")
 eq_raw <- readr::read_delim(filename, delim = "\t")
 eq_clean <- eq_clean_data(eq_raw)
@@ -39,13 +26,11 @@ eq_clean <- eq_clean_data(eq_raw)
   theme_timeline() +
   labs(title = "Earthquake Fatalities", color = "# deaths", size = "Richter scale value") +
   scale_color_gradient(low = "black", high = "red")
-
 ```
-
 
 The next example demonstrates how to plot geographical data for the earthquake events
 
-```r
+``` r
 filename <- system.file("extdata/earthquakes.tsv.gz", package = "earthquakeVis")
 eq_raw <- readr::read_delim(filename, delim = "\t")
 eq_clean <- eq_clean_data(eq_raw)

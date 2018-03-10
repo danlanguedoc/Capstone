@@ -4,7 +4,7 @@
 \alias{eq_location_clean}
 \title{eq_location_clean}
 \usage{
-eq_location_clean(countryName, location)
+eq_location_clean(data)
 }
 \arguments{
 \item{countryName}{A character string with the country name to be removed}

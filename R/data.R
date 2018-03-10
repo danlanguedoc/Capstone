@@ -31,28 +31,19 @@
 #' eq_location_clean("CANADA", "CANADA: MONTREAL")
 #' }
 #'
-#' @importFrom lettercase str_ucfirst
+#' @importFrom stringr str_replace str_trim str_to_title
 #'
 #' @export
-eq_location_clean <- function(countryName,location){
-                                newLocation<-location
-                                if (countryName != "") {
-                                    if (location == "") {
-                                        newLocation <- countryName
-                                    }
-                                    if (countryName != location) {
-                                        #if the location is not the same as the country, then process further
-                                        if (startsWith(location, countryName)) {
-                                            #remove the country name and following colon or semi colon
-                                            newLocation <- substring(location, nchar(countryName) + 1)
-                                            if (substr(newLocation, 1, 1) == ";" || substr(newLocation, 1, 1) == ":") {
-                                                newLocation <- trimws(substring(newLocation, 2))
-                                            }
-                                        }
-                                    }
-                                }
-                                return(str_ucfirst(tolower(newLocation)))
+eq_location_clean <- function(data) {
+  data <- data %>%
+    dplyr::mutate_(LOCATION_NAME = ~LOCATION_NAME %>%
+                     stringr::str_replace(paste0(COUNTRY, ":"), "") %>%
+                     stringr::str_replace(paste0(COUNTRY, ";"), "") %>%
+                     stringr::str_trim("both") %>%
+                     stringr::str_to_title())
+  data
 }
+
 
 #' @title eq_clean_data
 #'
@@ -76,13 +67,15 @@ eq_location_clean <- function(countryName,location){
 #'
 #' @importFrom tidyr replace_na
 #' @importFrom dplyr mutate
+#' @importFrom lubridate make_date
 #'
 #'
 #' @export
 eq_clean_data <- function(eq_raw) {
                             tidyr::replace_na(eq_raw, list(MONTH = 1, DAY = 1)) %>%
-                            dplyr::mutate(DATE = make_date(year = YEAR, month = MONTH, day = DAY), LATITUDE = as.numeric(LATITUDE), LONGITUDE = as.numeric(LONGITUDE), LOCATION_NAME = eq_location_clean(COUNTRY, LOCATION_NAME))
-}
+                            dplyr::mutate(DATE = make_date(year = YEAR, month = MONTH, day = DAY), LATITUDE = as.numeric(LATITUDE), LONGITUDE = as.numeric(LONGITUDE)) %>% ##, LOCATION_NAME = eq_location_clean(COUNTRY, LOCATION_NAME))
+                            eq_location_clean()
+                                            }
 
 #eq_clean <- eq_clean_data(eq_raw)
 

@@ -1,11 +1,10 @@
 Package: Capstone
 Type: Package
-Title: What the Package Does (Title Case)
+Title: NOAA Data Visualization Package
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Author: Dan Languedoc
+Maintainer: Dan Languedoc <dan.languedoc@gmail.com>
+Description: The Capstone package provides the user with visualization tools that use `ggplot2` and `leaflet` to analyze NOAA earthquake data
 License: GPL-3 + file LICENSE
 Encoding: UTF-8
 LazyData: true

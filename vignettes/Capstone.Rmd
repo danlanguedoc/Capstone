@@ -31,16 +31,18 @@ The Capstone package exposes the follwoing functions to users:
 
 ## Tidying the data
 
-The NOAA raw data needs to be cleaned to be efficiently processed.  eq_clean_data does this in the following manner
+The NOAA raw data needs to be cleaned to be efficiently processed.  `eq_clean_data` does this in the following manner
 
 It first replaces NA values in month and day with 1 to give a complete date.
 It then mutates the column like this
 - creates a new Date class column called "DATE" by combining the YEAR, MONTH and DAY field
 - Converts the LATTITUDE and LONGITUDE columns to numeric
-- Strips the country name from the location column
+- Strips the country name from the location column by calling `eq_location_clean`
+
+The following example creates a data frame with both `eq_clean_data` and `eq_clean_location` applied
 
 ```{r eq_read_example, message = FALSE}
-filename <- system.file("extdata/earthquakes.tsv.gz", package = "Capstone")
+filename <- system.file("extdata","signif.txt", package = "Capstone")
 data <- readr::read_delim(filename, delim = "\t")
 
 eq_clean_data(data)
@@ -55,8 +57,15 @@ Capstone defines two new geoms to use with the `ggplot2` package to visualise ea
 
 `geom_timeline_label()` adds text labels to the time line.  The labels are tilted to 45 degrees.  The "label" aesthic is required and should contain the name of a column that contains the information to display.
 
+As well as these 2 primary geoms, the package includes `theme_timeline` which tidies up the display by moving the legend to the right to avoid overlapping labels
+
 ```{r eq_timeline_example, message = FALSE}
-eq_clean %>% filter(COUNTRY %in% c("GREECE", "ITALY"), YEAR > 2000) %>%
+filename <- system.file("extdata","signif.txt", package = "Capstone")
+data <- readr::read_delim(filename, delim = "\t")
+
+eq_clean<-eq_clean_data(data)
+
+eq_clean %>% filter(COUNTRY %in% c("CANADA", "MEXICO"), YEAR > 2000) %>%
   ggplot(aes(x = DATE,
              y = COUNTRY,
              color = as.numeric(TOTAL_DEATHS),
@@ -73,9 +82,16 @@ eq_clean %>% filter(COUNTRY %in% c("GREECE", "ITALY"), YEAR > 2000) %>%
 
 There are also functions to display geographical data using the `leaflet` package.
 
-`eq_map()` takes a clean dataframe from `eq_clean_data` and returns a map of the affected area.  The map is automatically trimmed to display only the contained data.  `eq_create_label()` creates an HTML snippet that be tied to the popup parameter of `leaflet` to display additional information related to the selected event
+`eq_map()` takes a clean dataframe from `eq_clean_data` and returns a map of the affected area.  The map is automatically trimmed to display only the contained location data.  `eq_create_label()` creates an HTML snippet that be tied to the popup parameter of `leaflet` to display additional information related to the selected event
+
+This example demonstrates both of these functions displaying all the events that have occurred in Mexico since 2000 
 
 ```{r eq_mapping_example, message = FALSE}
+filename <- system.file("extdata","signif.txt", package = "Capstone")
+data <- readr::read_delim(filename, delim = "\t")
+
+eq_clean<-eq_clean_data(data)
+
 eq_Mexico <- dplyr::filter(eq_clean,COUNTRY == "MEXICO" & lubridate::year(DATE) >2000) %>%
   dplyr::mutate(popup_text = eq_create_label(.))
 eq_map(eq_Mexico, annot_col = "popup_text")

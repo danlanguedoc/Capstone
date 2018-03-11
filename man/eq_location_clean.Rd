@@ -26,7 +26,7 @@ The function first does sanity chaecks on countryName and location
 }
 \examples{
 \dontrun{
-eq_location_clean("CANADA", "CANADA: MONTREAL")
+eq_location_clean(eq_raw)
 }
 
 }

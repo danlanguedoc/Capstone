@@ -28,7 +28,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' eq_location_clean("CANADA", "CANADA: MONTREAL")
+#' eq_location_clean(eq_raw)
 #' }
 #'
 #' @importFrom stringr str_replace str_trim str_to_title

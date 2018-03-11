@@ -24,7 +24,7 @@
 #' eq_map(eq_Mexico, annot_col = "popup_text")
 #' }
 #'
-#' @importFrom leaflet leaflet addTiles AddCircleMarkers
+#' @importFrom leaflet leaflet addTiles addCircleMarkers
 #'
 #' @export
 eq_map <- function(data, annot_col) {

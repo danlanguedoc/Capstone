@@ -29,7 +29,7 @@ test_that("The data type of returned by eq_location_clean is a data frame", {
 
 test_that("The data type of returned by geom_timeline is a ggplot object", {
   g <- data %>% eq_clean_data() %>%
-    dplyr::filter(COUNTRY %in% c("GREECE", "ITALY"), YEAR > 2000) %>%
+    dplyr::filter(COUNTRY %in% c("CANADA", "MEXICO"), YEAR > 2000) %>%
     ggplot2::ggplot(ggplot2::aes(x = DATE,
                                  y = COUNTRY,
                                  color = as.numeric(TOTAL_DEATHS),
@@ -41,7 +41,7 @@ test_that("The data type of returned by geom_timeline is a ggplot object", {
 
 test_that("The data type of returned by geom_timeline_label is a ggplot object", {
   g <- data %>% eq_clean_data() %>%
-    dplyr::filter(COUNTRY %in% c("GREECE", "ITALY"), YEAR > 2000) %>%
+    dplyr::filter(COUNTRY %in% c("CANADA", "MEXICO"), YEAR > 2000) %>%
     ggplot2::ggplot(ggplot2::aes(x = DATE,
                                  y = COUNTRY,
                                  color = as.numeric(TOTAL_DEATHS),
@@ -53,7 +53,7 @@ test_that("The data type of returned by geom_timeline_label is a ggplot object",
 
 test_that("The data type of returned by theme_timeline is a ggplot object", {
   g <- data %>% eq_clean_data() %>%
-    dplyr::filter(COUNTRY %in% c("GREECE", "ITALY"), YEAR > 2000) %>%
+    dplyr::filter(COUNTRY %in% c("CANADA", "MEXICO"), YEAR > 2000) %>%
     ggplot2::ggplot(ggplot2::aes(x = DATE,
                                  y = COUNTRY,
                                  color = as.numeric(TOTAL_DEATHS),

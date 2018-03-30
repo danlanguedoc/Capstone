@@ -4,11 +4,21 @@ Title: NOAA Data Visualization Package
 Version: 0.1.0
 Author: Dan Languedoc
 Maintainer: Dan Languedoc <dan.languedoc@gmail.com>
-Description: The Capstone package provides the user with visualization tools that use `ggplot2` and `leaflet` to analyze NOAA earthquake data
+Description: The Capstone package provides the user with visualization tools that use `ggplot2` and `leaflet` to analyze NOAA earthquake data.
 License: GPL-3 + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Suggests: knitr,
-    rmarkdown
+    rmarkdown,
+    testthat
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
+Imports: dplyr,
+    ggplot2,
+    grid,
+    leaflet,
+    lubridate,
+    scales,
+    stringr,
+    tidyr,
+    readr

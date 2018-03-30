@@ -137,6 +137,9 @@ theme_timeline <- function() {
 #'
 #' @inheritParams ggplot2::geom_text
 #'
+#' @param maxQuakes Optional: it only plots the labels for the
+#' largest earthquakes in the selected group in the timeline
+#'
 #' @return a layer that can be passed to ggplot containing the time line labels
 #'
 #' @details
@@ -165,14 +168,14 @@ theme_timeline <- function() {
 #' @export
 geom_timeline_label <- function(mapping = NULL, data = NULL, stat = "identity",
                                 position = "identity", ..., na.rm = FALSE,
-                                maxCountries = NULL, show.legend = NA,
+                                maxQuakes = NULL, show.legend = NA,
                                 inherit.aes = TRUE) {
 
     ggplot2::layer(
           geom = GeomTimelineLabel, mapping = mapping,
           data = data, stat = stat, position = position,
           show.legend = show.legend, inherit.aes = inherit.aes,
-          params = list(na.rm = na.rm, maxCountries = maxCountries, ...)
+          params = list(na.rm = na.rm, maxQuakes = maxQuakes, ...)
      )
 }
 
@@ -189,19 +192,19 @@ geom_timeline_label <- function(mapping = NULL, data = NULL, stat = "identity",
           required_aes = c("x", "label"),
           draw_key = ggplot2::draw_key_blank,
           setup_data = function(data, params) {
-              if (!is.null(params$maxCountries)) {
+              if (!is.null(params$maxQuakes)) {
                   if (!("size" %in% colnames(data))) {
                       stop(paste("'size' aesthetic needs to be",
-                                    "provided when 'maxCountries' is defined."))
+                                    "provided when 'maxQuakes' is defined."))
                   }
                   data <- data %>%
                          dplyr::group_by_("group") %>%
-                         dplyr::top_n(params$maxCountries, size) %>%
+                         dplyr::top_n(params$maxQuakes, size) %>%
                          dplyr::ungroup()
               }
               data
           },
-          draw_panel = function(data, panel_scales, coord, maxCountries) {
+          draw_panel = function(data, panel_scales, coord, maxQuakes) {
 
               if (!("y" %in% colnames(data))) {
                   data$y <- 0.15

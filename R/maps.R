@@ -58,12 +58,13 @@ eq_map <- function(data, annot_col) {
 #'   dplyr::mutate(popup_text = eq_create_label(.))
 #' }
 #'
+#' @importFrom dplyr if_else
 #'
 #' @export
 eq_create_label <- function(data){
-                  locn <- if_else(!is.na(data$LOCATION_NAME),paste0("<strong>Location: </strong>",data$LOCATION_NAME),"")
-                  deaths <- if_else(!is.na(data$TOTAL_DEATHS),paste0("<br/><strong>Total Deaths: </strong>",data$TOTAL_DEATHS),"")
-                  mag <- if_else(!is.na(data$EQ_PRIMARY),paste0("<br/><strong>Magnitude: </strong>",data$EQ_PRIMARY),"")
+                  locn <- dplyr::if_else(!is.na(data$LOCATION_NAME),paste0("<strong>Location: </strong>",data$LOCATION_NAME),"")
+                  deaths <- dplyr::if_else(!is.na(data$TOTAL_DEATHS),paste0("<br/><strong>Total Deaths: </strong>",data$TOTAL_DEATHS),"")
+                  mag <- dplyr::if_else(!is.na(data$EQ_PRIMARY),paste0("<br/><strong>Magnitude: </strong>",data$EQ_PRIMARY),"")
                   paste(locn,deaths,mag)
 }
 

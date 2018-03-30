@@ -7,22 +7,19 @@
 eq_location_clean(data)
 }
 \arguments{
-\item{countryName}{A character string with the country name to be removed}
-
-\item{location}{A character string with the location to be cleaned}
+\item{data}{a dataframe with a Location column that contains Country information}
 }
 \value{
-a string with the country and any folowing colons or semi-colons
-    removed from the front
+a dataframe with the Country and any folowing colons or semi-colons
+    removed from the front of the Location
 }
 \description{
 Function that removes the country name from the location data
 }
 \details{
-The function first does sanity chaecks on countryName and location
-    then checks to see if the location starts with countryName
-    if yes, the countryName and trailing colons are removed from the start of location
-    str_ucfirst is then used to convert the location to initial upper case
+The function first removes Country from location appending : and ;
+    then trims both ends of the location string
+    str_to_title is then used to convert the location to initial upper case
 }
 \examples{
 \dontrun{

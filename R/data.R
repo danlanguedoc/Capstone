@@ -14,17 +14,15 @@
 #'
 #' @description Function that removes the country name from the location data
 #'
-#' @param countryName A character string with the country name to be removed
-#' @param location A character string with the location to be cleaned
+#' @param data a dataframe with a Location column that contains Country information
 #'
-#' @return a string with the country and any folowing colons or semi-colons
-#'     removed from the front
+#' @return a dataframe with the Country and any folowing colons or semi-colons
+#'     removed from the front of the Location
 #'
 #' @details
-#' The function first does sanity chaecks on countryName and location
-#'     then checks to see if the location starts with countryName
-#'     if yes, the countryName and trailing colons are removed from the start of location
-#'     str_ucfirst is then used to convert the location to initial upper case
+#' The function first removes Country from location appending : and ;
+#'     then trims both ends of the location string
+#'     str_to_title is then used to convert the location to initial upper case
 #'
 #' @examples
 #' \dontrun{
@@ -73,7 +71,7 @@ eq_location_clean <- function(data) {
 #' @export
 eq_clean_data <- function(eq_raw) {
                             tidyr::replace_na(eq_raw, list(MONTH = 1, DAY = 1)) %>%
-                            dplyr::mutate(DATE = make_date(year = YEAR, month = MONTH, day = DAY), LATITUDE = as.numeric(LATITUDE), LONGITUDE = as.numeric(LONGITUDE)) %>% ##, LOCATION_NAME = eq_location_clean(COUNTRY, LOCATION_NAME))
+                            dplyr::mutate_(DATE = ~lubridate::make_date(year = YEAR, month = MONTH, day = DAY), LATITUDE = ~as.numeric(LATITUDE), LONGITUDE = ~as.numeric(LONGITUDE)) %>% ##, LOCATION_NAME = eq_location_clean(COUNTRY, LOCATION_NAME))
                             eq_location_clean()
                                             }
 

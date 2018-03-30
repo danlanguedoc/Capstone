@@ -26,5 +26,4 @@ eq_Mexico <- dplyr::filter(eq_clean,COUNTRY == "MEXICO" & lubridate::year(DATE) 
   dplyr::mutate(popup_text = eq_create_label(.))
 }
 
-
 }

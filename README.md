@@ -1,4 +1,9 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+farsdata
+========
+
+[![Travis-CI Build Status](https://travis-ci.org/danlanguedoc/Capstone.svg?branch=master)](https://travis-ci.org/danlanguedoc/Capstone)
+
 Capstone
 ========
 
@@ -12,7 +17,7 @@ Example
 This first example will generate a time line of earthquake events with location labels. The magnitude and number of deaths are represented by the size of the data markers and their color
 
 ``` r
-filename <- system.file("extdata/earthquakes.tsv.gz", package = "earthquakeVis")
+filename <- system.file("inst/extdata/signif.txt", package = "Capstone")"
 eq_raw <- readr::read_delim(filename, delim = "\t")
 eq_clean <- eq_clean_data(eq_raw)
   eq_clean %>% filter(COUNTRY %in% c("GREECE", "ITALY"), YEAR > 2000) %>%
@@ -31,7 +36,7 @@ eq_clean <- eq_clean_data(eq_raw)
 The next example demonstrates how to plot geographical data for the earthquake events
 
 ``` r
-filename <- system.file("extdata/earthquakes.tsv.gz", package = "earthquakeVis")
+filename <- system.file("inst/extdata/signif.txt", package = "Capstone")"
 eq_raw <- readr::read_delim(filename, delim = "\t")
 eq_clean <- eq_clean_data(eq_raw)
 eq_Mexico <- dplyr::filter(eq_clean,COUNTRY == "MEXICO" & lubridate::year(DATE) >2000) %>%

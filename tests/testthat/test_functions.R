@@ -2,12 +2,19 @@ library(Capstone)
 library(lubridate)
 library(ggplot2)
 library(dplyr)
+library(grid)
+library(leaflet)
+library(scales)
+library(stringr)
+library(tidyr)
+library(readr)
 
 
 context("CApstone tests")
 
-filename <- system.file("inst/extdata/signif.txt", package = "Capstone")
-data <- readr::read_delim(filename, delim = "\t")
+setwd(system.file("extdata", package = "Capstone"))
+
+data <- readr::read_delim("signif.txt", delim = "\t")
 
 
 test_that("The data type of returned by eq_clean_data is a data frame", {

@@ -5,7 +5,7 @@
 \title{geom_timeline_label}
 \usage{
 geom_timeline_label(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., na.rm = FALSE, maxCountries = NULL,
+  position = "identity", ..., na.rm = FALSE, maxQuakes = NULL,
   show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
@@ -41,6 +41,9 @@ to the paired geom/stat.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
+
+\item{maxQuakes}{Optional: it only plots the labels for the
+largest earthquakes in the selected group in the timeline}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.

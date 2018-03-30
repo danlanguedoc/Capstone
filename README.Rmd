@@ -15,8 +15,6 @@ knitr::opts_chunk$set(
 ```
 
 
-# farsdata
-
 [![Travis-CI Build Status](https://travis-ci.org/danlanguedoc/Capstone.svg?branch=master)](https://travis-ci.org/danlanguedoc/Capstone)
 
 
